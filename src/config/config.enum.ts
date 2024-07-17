@@ -1,3 +1,4 @@
 export enum ConfigEnum {
-  API = 'api',
+  PORT = 'port',
+  DATABASE_URL = 'databaseUrl',
 }
