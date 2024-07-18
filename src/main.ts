@@ -17,7 +17,7 @@ async function bootstrap() {
 
   const logger = new Logger(AppModule.name);
 
-  const PORT = config.get<number>(ConfigEnum.PORT);
+  const PORT = config.get<number>(ConfigEnum.PORT, 3001);
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,

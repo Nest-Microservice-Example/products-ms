@@ -1,4 +1,8 @@
+export type DatabaseConfig = {
+  url: string;
+};
+
 export type Config = {
   port: number;
-  databaseUrl: string;
+  database: DatabaseConfig;
 };
