@@ -4,5 +4,6 @@ export type DatabaseConfig = {
 
 export type Config = {
   port: number;
+  host: string;
   database: DatabaseConfig;
 };

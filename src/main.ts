@@ -11,13 +11,14 @@ const validationPipe = new ValidationPipe({
 });
 
 async function bootstrap() {
+  const logger = new Logger(AppModule.name);
+
   const context = await NestFactory.createApplicationContext(AppModule);
 
   const config = context.get(ConfigService);
 
-  const logger = new Logger(AppModule.name);
-
-  const PORT = config.get<number>(ConfigEnum.PORT, 3001);
+  const PORT = config.get<number>(ConfigEnum.PORT, { infer: true });
+  const HOST = config.get<number>(ConfigEnum.HOST, { infer: true });
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -25,6 +26,7 @@ async function bootstrap() {
       transport: Transport.TCP,
       options: {
         port: PORT,
+        host: HOST,
       },
     },
   );
