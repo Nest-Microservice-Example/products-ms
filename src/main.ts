@@ -1,13 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { ConfigService } from '@nestjs/config';
-import { ConfigEnum } from './config';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { Logger, ValidationPipe } from "@nestjs/common";
+import { MicroserviceOptions, Transport } from "@nestjs/microservices";
+import { ConfigService } from "@nestjs/config";
+import { ConfigEnum } from "./config";
 
 const validationPipe = new ValidationPipe({
   whitelist: true,
-  forbidNonWhitelisted: true,
+  forbidNonWhitelisted: true
 });
 
 async function bootstrap() {
@@ -26,9 +26,9 @@ async function bootstrap() {
       transport: Transport.TCP,
       options: {
         port: PORT,
-        host: HOST,
-      },
-    },
+        host: HOST
+      }
+    }
   );
 
   app.useGlobalPipes(validationPipe);
