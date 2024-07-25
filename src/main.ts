@@ -1,13 +1,13 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
-import { Logger, ValidationPipe } from "@nestjs/common";
-import { MicroserviceOptions, Transport } from "@nestjs/microservices";
-import { ConfigService } from "@nestjs/config";
-import { ConfigEnum } from "./config";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
+import { ConfigEnum } from './config';
 
 const validationPipe = new ValidationPipe({
   whitelist: true,
-  forbidNonWhitelisted: true
+  forbidNonWhitelisted: true,
 });
 
 async function bootstrap() {
@@ -17,25 +17,23 @@ async function bootstrap() {
 
   const config = context.get(ConfigService);
 
-  const PORT = config.get<number>(ConfigEnum.PORT, { infer: true });
-  const HOST = config.get<number>(ConfigEnum.HOST, { infer: true });
+  const NATS_SERVERS = config.get<string[]>(ConfigEnum.NATS, { infer: true });
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.NATS,
       options: {
-        port: PORT,
-        host: HOST
-      }
-    }
+        servers: NATS_SERVERS,
+      },
+    },
   );
 
   app.useGlobalPipes(validationPipe);
 
   await app.listen();
 
-  logger.log(`Products Microservice running on port ${PORT}`);
+  logger.log(`Products Microservice running`);
 }
 
 bootstrap();

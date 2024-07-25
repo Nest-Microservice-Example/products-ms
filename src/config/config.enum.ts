@@ -1,5 +1,4 @@
 export enum ConfigEnum {
-  PORT = 'port',
-  HOST = 'host',
+  NATS = 'nats',
   DATABASE_URL = 'database.url',
 }
