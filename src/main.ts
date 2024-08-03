@@ -18,7 +18,7 @@ async function bootstrap() {
   const config = context.get(ConfigService);
 
   const NATS_SERVERS = config.get<string[]>(ConfigEnum.NATS, { infer: true });
-
+  console.log(NATS_SERVERS)
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
